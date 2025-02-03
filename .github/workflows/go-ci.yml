@@ -11,40 +11,54 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: HelloWorld
+        working-directory: HelloWorld  # Katalog HelloWorld
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: 1.20
+      - name: Install Go 1.22.5 manually
+        run: |
+          wget https://golang.org/dl/go1.22.5.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xvzf go1.22.5.linux-amd64.tar.gz
+          export PATH=$PATH:/usr/local/go/bin
+          go version  # Sprawdzenie wersji Go
+
+      - name: Check HelloWorld directory
+        run: |
+          ls -alh  # Wyświetlamy zawartość katalogu roboczego HelloWorld
 
       - name: Install dependencies for HelloWorld
-        run: go mod tidy
+        run: |
+          go mod tidy  # Instalujemy zależności
 
       - name: Run tests for HelloWorld
         run: go test ./...
 
-  another-app:
+  your-name:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: AnotherApp
+        working-directory: YourName  # Katalog YourName
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: 1.20
+      - name: Install Go 1.22.5 manually
+        run: |
+          wget https://golang.org/dl/go1.22.5.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xvzf go1.22.5.linux-amd64.tar.gz
+          export PATH=$PATH:/usr/local/go/bin
+          go version  # Sprawdzenie wersji Go
 
-      - name: Install dependencies for AnotherApp
-        run: go mod tidy
+      - name: Check YourName directory
+        run: |
+          ls -alh  # Wyświetlamy zawartość katalogu roboczego YourName
 
-      - name: Run tests for AnotherApp
+      - name: Install dependencies for YourName
+        run: |
+          go mod tidy  # Instalujemy zależności
+
+      - name: Run tests for YourName
         run: go test ./...
