@@ -24,3 +24,22 @@ jobs:
 
       - name: Run tests
         run: cd HelloWorld && go test ./...
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22.5
+
+      - name: Change to YourName directory
+        run: cd YourName && go mod tidy
+
+      - name: Run tests
+        run: cd YourName && go test ./...
